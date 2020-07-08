@@ -45,7 +45,7 @@ deactivate
 ```
 
 ## Note on current version
-No main has been written so far, as it seemed unnecessary. Also, note that I have set a variable called `debug` to `True` by default. It would simply print what would be sent to slack. If `debug = False`, it will start sending messages. By default, a query to CHIME's server is done every 10 minutes. This can be changed by modifying the variable `WAIT_MINUTES` at near the beginning of the script.
+No main has been written so far, as it seemed unnecessary. Also, note that I have set a variable called `debug` to `True` by default. It would simply print what would be sent to slack. If `debug = False`, it will start sending messages. By default, a query to CHIME's server is done every 10 minutes. This can be changed by modifying the variable `WAIT_MINUTES` near the beginning of the script.
 
 ----
 Copyright (c) Dany Vohl / macrocosme, 2020.
