@@ -33,6 +33,9 @@ source env/bin/activate
 # Install required packages
 pip3 install -r requirements.txt
 
+# Make script executable
+chmod +x chime_repeaters_observer.py
+
 # Start the script
 run_path=/home/<user>/<path_to_chime_repeaters_observer>
 /usr/bin/nohup $run_path/chime_repeaters_observer.py 2>&1 >> $run_path/chime_repeaters_observer.log &
