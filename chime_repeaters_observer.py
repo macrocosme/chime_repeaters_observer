@@ -270,5 +270,5 @@ while True:
     except ValueError:
         print (datetime.datetime.utcnow().strftime("%A, %d. %B %Y %I:%M%p") + ' - Problem decoding JSON from query')
     if debug:
-        print ('waiting for 10 minutes')
+        print ('waiting for %d minutes' % WAIT_MINUTES)
     time.sleep(WAIT_MINUTES*60)
