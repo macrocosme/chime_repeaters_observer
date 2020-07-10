@@ -1,6 +1,6 @@
 # CHIME repeaters observer
 
-Python script to query the CHIME repeater page \([http://chime-frb.ca/repeaters](http://chime-frb.ca/repeaters)\) repetitively. Upon (a) new burst(s) announcement, the script will send a message with burst(s) details to a slack channel.
+Python script to query the CHIME repeaters page \([http://chime-frb.ca/repeaters](http://chime-frb.ca/repeaters)\) repetitively. Upon (a) new burst(s) announcement, the script will send a message with burst(s) details to a slack channel.
 
 ## Before we start
 
