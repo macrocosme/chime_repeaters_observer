@@ -224,13 +224,15 @@ def load(variable, state_prefix='', folder='states/'):
     if state_prefix != '':
         if os.path.exists(folder + check_underscore(state_prefix) + variable + '.pickle'):
             with open(folder + check_underscore(state_prefix) + variable + '.pickle', 'rb') as f:
-                return pickle.load(f)
+                loaded = pickle.load(f)
+            return loaded
         else:
             return None
     else:
         if os.path.exists(folder + variable + '.pickle'):
             with open(folder + variable + '.pickle', 'rb') as f:
-                return pickle.load(f)
+                loaded = pickle.load(f)
+            return loaded
         else:
             return None
 
