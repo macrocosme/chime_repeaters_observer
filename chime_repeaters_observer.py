@@ -40,6 +40,12 @@ def send_message_to_slack(blocks, debug=False):
             print("Got an error: %s" % (e.response["error"]))
             print(blocks)
             print()
+
+            if e.response["error"] == "not_in_channel":
+                resp = client.conversations_list(types="public_channel")['channels']
+                print(resp)
+                channel_id = [channel['id'] for channel in resp if channel['name'] == CHANNEL[1:]][0]
+                client.conversations_join(channel=channel_id)
     return []
 
 
