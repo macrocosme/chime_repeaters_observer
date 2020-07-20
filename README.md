@@ -7,8 +7,13 @@ Python script to query the CHIME repeaters page \([http://chime-frb.ca/repeaters
 1) Create a new app for your [Slack workspaces](https://api.slack.com/apps), providing the following scopes rights to allow you to modify previous message programmatically if required:  \[channels:history,
 chat:write,
 files:write,
-groups:history,
-im:write\].
+channels:join, 
+channels:read, 
+groups:history, 
+groups:read, 
+im:read, 
+im:write, 
+mpim:read\].
 
 2) Generate a "Bot User OAuth Access Token" and store it somewhere safe, to be loaded as an environement variable called `SLACK_API_TOKEN`, which will be used by the script.
 
