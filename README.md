@@ -52,5 +52,7 @@ deactivate
 ## Notes on current version
 No main has been written so far, as it seemed unnecessary. Also, note that I have set a variable called `debug` to `True` by default. It would simply print what would be sent to slack. If `debug = False`, it will start sending messages. By default, a query to CHIME's server is done every 10 minutes. This can be changed by modifying the variable `WAIT_MINUTES` near the beginning of the script. `nohup`'s tip came from Leon Oostrum. `requests.post("https://catalog.chime-frb.ca/repeaters", data={}).json()` came from David Gardenier. Hence, kudos to them. 
 
+
 ----
 Copyright (c) Dany Vohl / macrocosme, 2020.
+Under Apache-2.0 License
