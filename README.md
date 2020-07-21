@@ -21,7 +21,7 @@ mpim:read\].
 
 ## Prerequisites and execution
 
-Install required packages included in requirements.txt. I suggest to run the following in a virtual environment. Example:
+Install required packages included in `requirements.txt`. I suggest to run the following in a virtual environment. Example:
 
 ```shell
 cd /home/<user>/<path_to_chime_repeaters_observer>
