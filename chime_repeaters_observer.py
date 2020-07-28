@@ -49,10 +49,10 @@ def send_message_to_slack(blocks, debug=False):
     return []
 
 
-def send_message(source, source_dict, date=None, debug=False):
+def send_message(source, source_dict, last_dates=None, debug=False):
     blocks = []
     # Case 1. New FRB source
-    if date is None:
+    if last_dates is None:
         text = "New FRB source: *%s*\n" % (source)
         # Skipping latest_burst_date as all instances are empty.
         for param in SOURCE_PARAMS[1:]:
@@ -136,7 +136,7 @@ def send_message(source, source_dict, date=None, debug=False):
                 time.sleep(1)
     # Case 2. New detection from known source
     else:
-        text = "New detection from *%s* on %s\n" % (source, date)
+        text = "New detection(s) from *%s*\n" % (source)
         # Skipping latest_burst_date as all instances are empty.
         for param in SOURCE_PARAMS[1:]:
             try:
@@ -159,49 +159,54 @@ def send_message(source, source_dict, date=None, debug=False):
         blocks.append(message)
         blocks.append({"type": "divider"})
 
-        text = "*%s*\n" % source_dict[date]['timestamp']["value"]
-        for var in np.sort(list(source_dict[date].keys())):
-            if var not in ["value", "timestamp"]:
-                if True not in [True if "error" in k else False for k in list(source_dict[date][var].keys())]:
-                    try:
-                        text += "*%s*: %.1f\n" % (
-                            source_dict[date][var]["display_name"],
-                            source_dict[date][var]["value"]
-                        )
-                    except TypeError:
-                        text += "*%s*: %s\n" % (
-                            source_dict[date][var]["display_name"],
-                            'n/a'
-                        )
-                else:
-                    try:
-                        text += "*%s*: %.1f (%.2f)\n" % (
-                            source_dict[date][var]["display_name"],
-                            source_dict[date][var]["value"],
-                            source_dict[date][var]["error_high"],
-                        )
-                    except TypeError:
-                        text += "*%s*: %s\n" % (
-                            source_dict[date][var]["display_name"],
-                            'n/a'
-                        )
-            else:
-                if var == "value":
-                    text += "**%s**: %s\n" % (
-                        var,
-                        source_dict[date][var]["value"]
-                    )
-        if text != '':
-            message = {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": text
-                }
-            }
-            blocks.append(message)
-            blocks.append({"type": "divider"})
-            blocks = send_message_to_slack(blocks, debug=debug)
+        for date in source_dict.keys():
+            if date not in last_dates:
+                if debug:
+                    print (date, source)
+                    print ()
+                text = "*%s*\n" % source_dict[date]['timestamp']["value"]
+                for var in np.sort(list(source_dict[date].keys())):
+                    if var not in ["value", "timestamp"]:
+                        if True not in [True if "error" in k else False for k in list(source_dict[date][var].keys())]:
+                            try:
+                                text += "*%s*: %.1f\n" % (
+                                    source_dict[date][var]["display_name"],
+                                    source_dict[date][var]["value"]
+                                )
+                            except TypeError:
+                                text += "*%s*: %s\n" % (
+                                    source_dict[date][var]["display_name"],
+                                    'n/a'
+                                )
+                        else:
+                            try:
+                                text += "*%s*: %.1f (%.2f)\n" % (
+                                    source_dict[date][var]["display_name"],
+                                    source_dict[date][var]["value"],
+                                    source_dict[date][var]["error_high"],
+                                )
+                            except TypeError:
+                                text += "*%s*: %s\n" % (
+                                    source_dict[date][var]["display_name"],
+                                    'n/a'
+                                )
+                    else:
+                        if var == "value":
+                            text += "**%s**: %s\n" % (
+                                var,
+                                source_dict[date][var]["value"]
+                            )
+                if text != '':
+                    message = {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": text
+                        }
+                    }
+                    blocks.append(message)
+                    blocks.append({"type": "divider"})
+                    blocks = send_message_to_slack(blocks, debug=debug)
 
 def check_underscore(string):
     if string != '':
@@ -264,13 +269,7 @@ while True:
                         print ()
                     send_message(source, latest[source], debug=debug)
                 else:
-                    for date in latest[source].keys():
-                        # New repeat burst
-                        if date not in last[source].keys():
-                            if debug:
-                                print (date, source)
-                                print ()
-                            send_message(source, latest[source], date, debug=debug)
+                    send_message(source, latest[source], last[source].keys(), debug=debug)
 
         last = latest
         if not debug:
