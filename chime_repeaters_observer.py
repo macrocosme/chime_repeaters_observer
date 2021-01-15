@@ -16,7 +16,7 @@ from slack import WebClient
 from slack.errors import SlackApiError
 
 
-SOURCE_PARAMS = ["last_burst_date", "dm", "ne2001", "ymw16", "localized", "ra", "dec", "gl", "gb", "publication"]
+SOURCE_PARAMS = ["previous_name", "last_burst_date", "dm", "ne2001", "ymw16", "localized", "ra", "dec", "gl", "gb", "publication"]
 CHANNEL = '#chime-observer'
 WAIT_MINUTES = 10
 
@@ -61,6 +61,8 @@ def send_message(source, source_dict, date=None, debug=False):
                     source_dict[param]["display_name"],
                     source_dict[param]["value"]
                 )
+            except KeyError:
+                pass
             except:
                 text += "*%s*: %s\n" % (
                     param,
@@ -144,6 +146,8 @@ def send_message(source, source_dict, date=None, debug=False):
                     source_dict[param]["display_name"],
                     source_dict[param]["value"]
                 )
+            except KeyError:
+                pass
             except:
                 text += "*%s*: %s\n" % (
                     param,
