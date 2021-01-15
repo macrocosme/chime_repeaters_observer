@@ -3,6 +3,8 @@
 # Author: Dany Vohl (vohl (at) astron.nl)
 # Written in 2020
 
+# Last updated 15 Jan 2021.
+
 import requests
 import time
 import datetime
@@ -164,7 +166,7 @@ def send_message(source, source_dict, last_dates=None, debug=False):
         blocks.append({"type": "divider"})
 
         for date in source_dict.keys():
-            if date not in last_dates:
+            if date not in last_dates and date not in SOURCE_PARAMS:
                 if debug:
                     print (date, source)
                     print ()
