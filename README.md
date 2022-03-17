@@ -2,6 +2,9 @@
 
 Python script to query the CHIME repeaters page \([http://chime-frb.ca/repeaters](http://chime-frb.ca/repeaters)\) repetitively. Upon (a) new burst(s) announcement, the script will send a message with burst(s) details to a slack channel.
 
+# Critical note
+This script is now deprecated since the start of [CHIME/FRB VOevents](https://www.chime-frb.ca/voevents). See https://www.chime-frb.ca/voevents for details.
+
 ## Before we start
 
 1) Create a new app for your [Slack workspaces](https://api.slack.com/apps), providing the following scopes rights to allow you to modify previous message programmatically if required:  \[channels:history,
